@@ -2,7 +2,7 @@
 # BlenderTodo
  Simple Blender Todo Addon
 
-## N Panel:
+## Panel:
 
 |N-Panel                          |3D View                      |
 |---------------------------------|-----------------------------|
