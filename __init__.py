@@ -22,8 +22,8 @@ bl_info = {
     "category" : "Generic"
 }
 import bpy
-from .blendertodo import SceneSave, bl_classes
-from bpy.types import Scene
+from .blendertodo import SceneSave, bl_classes, view_panel_callback
+from bpy.types import Scene, VIEW3D_MT_editor_menus
 
 
 
@@ -33,7 +33,11 @@ def register():
 
     Scene.bl_todo = bpy.props.PointerProperty(name="Blender Todo",type=SceneSave)
 
+    VIEW3D_MT_editor_menus.append(view_panel_callback)  
+
 def unregister():
+    VIEW3D_MT_editor_menus.remove(view_panel_callback)  
+
     del Scene.bl_todo
 
     for c in reversed(bl_classes):

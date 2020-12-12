@@ -56,6 +56,10 @@ class TodoPanel(bpy.types.Panel):
         l.separator()
         
 
+def view_panel_callback(self, context):
+    self.layout.popover(TodoPanel.bl_idname)
+    
+
 class TodoList(bpy.types.UIList):
     bl_idname="TODO_UL_ToDoList"
 
