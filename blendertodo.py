@@ -29,6 +29,32 @@ class SceneSave(PropertyGroup):
         default=0
     )
 
+class Settings(bpy.types.AddonPreferences):
+    bl_idname = __name__.partition('.')[0]
+
+    from bpy.props import BoolProperty
+    popover_enabled : BoolProperty(name="Show in 3D View", default=True)
+
+    display_variants = [
+        ("icon", "Icon","",1),
+        ("text", "Text", "", 2)
+    ]
+    popover_display_as : bpy.props.EnumProperty(name="Display As", default="text", items=display_variants)
+
+    n_panel_enabled : BoolProperty(name="Show in N-Panel", default=True)
+
+    def draw(self, context):
+        l = self.layout
+        r = l.row()
+        c = r.column()
+        c.prop(self, "popover_enabled")
+        c.prop(self, "popover_display_as")
+        space = r.column()
+        space.separator()
+        space.separator()
+        c = r.column()
+        c.prop(self, "n_panel_enabled")
+
 #
 # UI
 #
@@ -38,7 +64,7 @@ class TodoPanel(bpy.types.Panel):
     bl_label = "Blender Todo"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "ToDo"
+    bl_category = "To-Do"
 
     def clamp(self, n):
         return max(min(20, n), 3)
@@ -57,7 +83,13 @@ class TodoPanel(bpy.types.Panel):
         
 
 def view_panel_callback(self, context):
-    self.layout.popover(TodoPanel.bl_idname)
+    prefs = context.preferences.addons[__name__.partition('.')[0]].preferences
+    if prefs.popover_enabled:
+        if prefs.popover_display_as == "icon":
+            self.layout.popover(TodoPanel.bl_idname, text="", icon="PRESET")
+        else:
+            self.layout.popover(TodoPanel.bl_idname, text="To-Do")
+        
     
 
 class TodoList(bpy.types.UIList):
@@ -89,7 +121,7 @@ class TodoList(bpy.types.UIList):
 
 
 
-bl_classes=[TodoItem, TodoList, SceneSave, TodoPanel]
+bl_classes=[TodoItem, TodoList, SceneSave, Settings,TodoPanel]
 
 #
 # OPS
