@@ -79,7 +79,6 @@ class TodoPanel:
 
 
 
-#Calling directly causes "[..]\blender.git\source\blender\python\intern\bpy_rna.c:8341 bpy_class_call: unable to get Python class for RNA struct 'BLENDERTODO_PT_ToDoBase'"
 class TodoIn3DPanel(TodoPanel, bpy.types.Panel):
     bl_idname = "BLENDERTODO_PT_3DView"
     bl_label = "Blender Todo"
