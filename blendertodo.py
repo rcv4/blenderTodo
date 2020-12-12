@@ -83,6 +83,7 @@ class TodoPanel:
 class TodoIn3DPanel(TodoPanel, bpy.types.Panel):
     bl_idname = "BLENDERTODO_PT_3DView"
     bl_label = "Blender Todo"
+    bl_region_type = "WINDOW"
 
     @classmethod
     def poll(cls, context):
@@ -95,13 +96,14 @@ class TodoIn3DPanel(TodoPanel, bpy.types.Panel):
         loc = context.scene.bl_todo
 
         #You cant double-click to edit in popovers (https://developer.blender.org/T66286)
-        selected = loc.todo_list[loc.index]
-        c = l.column(align=True)
-        c.label(text="Edit: ")
-        b = c.box()
-        r = b.row()
-        r.prop(selected, "done", text="")
-        r.prop(selected, "content", text="")
+        if len(loc.todo_list) > 0:
+            selected = loc.todo_list[loc.index]
+            c = l.column(align=True)
+            c.label(text="Edit: ")
+            b = c.box()
+            r = b.row()
+            r.prop(selected, "done", text="")
+            r.prop(selected, "content", text="")
 
 
 
