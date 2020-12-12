@@ -16,10 +16,10 @@ bl_info = {
     "author" : "rcv4",
     "description" : "A Simple Blender Todo Addon",
     "blender" : (2, 83, 0),
-    "version" : (0, 0, 1),
-    "location" : "3D View > ToDo",
-    "warning" : "",
-    "category" : "Generic"
+    "version" : (0, 0, 2),
+    "location" : "3D View -> To-Do",
+    "tracker_url" : "https://github.com/rcv4/blenderTodo/issues",
+    "category" : "3D View"
 }
 import bpy
 from .blendertodo import SceneSave, bl_classes, view_panel_callback
